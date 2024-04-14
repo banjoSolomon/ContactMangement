@@ -54,6 +54,9 @@ public class UserServiceImpl implements UserService{
             throw new InvalidEmailException("Invalid Email");
         }
         User foundUser = findUserBy(contactRequest.getUsername());
+        if(emailAlreadyExists(email, foundUser)){
+            throw new EmailAlreadyExistsException("EmailAlreadyExists");
+        }
         if(phoneNumberExistsForUser(phoneNumber,foundUser)){
             throw new PhoneNumberAlreadyExistsException("PhoneNumberExists");
         }
@@ -64,6 +67,14 @@ public class UserServiceImpl implements UserService{
         return mapCreateContactResponseWith(newContact);
 
 
+    }
+
+    private boolean emailAlreadyExists(String email, User foundUser) {
+        for(Contact contact : foundUser.getContacts()) {
+            if(contact.getEmail() != null && contact.getEmail().equalsIgnoreCase(email))
+                return true;
+        }
+        return false;
     }
 
     private boolean phoneNumberExistsForUser(String phoneNumber, User foundUser) {
