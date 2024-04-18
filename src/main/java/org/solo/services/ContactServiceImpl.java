@@ -44,11 +44,10 @@ public class ContactServiceImpl implements ContactService{
     @Override
     public List<Contact> searchContactsByName(User foundUser, String searchName) {
         List<Contact> foundContact = new ArrayList<>();
-        for (Contact contact : foundUser.getContacts()) {
-            if (contact.getName().contains(searchName)) {
+        for (Contact contact : foundUser.getContacts())
+            if (contact.getName().contains(searchName))
                 foundContact.add(contact);
-            }
-        }
+
         return foundContact;
     }
 

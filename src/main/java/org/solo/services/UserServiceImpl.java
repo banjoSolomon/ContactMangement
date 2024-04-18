@@ -50,16 +50,16 @@ public class UserServiceImpl implements UserService{
        String email = contactRequest.getEmail();
         if(!isValidPhoneNumber(phoneNumber))
             throw new InvalidPhoneNumber("InvalidPhoneNumber");
-        if(!isValidEmail(email)){
+        if(!isValidEmail(email))
             throw new InvalidEmailException("Invalid Email");
-        }
+
         User foundUser = findUserBy(contactRequest.getUsername());
-        if(emailAlreadyExists(email, foundUser)){
+        if(emailAlreadyExists(email, foundUser))
             throw new EmailAlreadyExistsException("EmailAlreadyExists");
-        }
-        if(phoneNumberExistsForUser(phoneNumber,foundUser)){
+
+        if(phoneNumberExistsForUser(phoneNumber,foundUser))
             throw new PhoneNumberAlreadyExistsException("PhoneNumberExists");
-        }
+
        Contact newContact = contactService.createContactsWith(contactRequest);
         foundUser.getContacts().add(newContact);
         userRepository.save(foundUser);
@@ -94,13 +94,13 @@ public class UserServiceImpl implements UserService{
 
 
     private boolean isValidPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null || phoneNumber.isEmpty()) {
+        if (phoneNumber == null || phoneNumber.isEmpty())
             return false;
-        }
-        for(char check : phoneNumber.toCharArray()){
+
+        for(char check : phoneNumber.toCharArray())
             if(!Character.isDigit(check)){
                 return false;
-            }
+
         }
        return phoneNumber.length()== 11;
 
@@ -158,6 +158,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public LogoutUserResponse logout(LogoutRequest logoutRequest) {
+        authentication = null;
         User foundUser = findUserBy(logoutRequest.getUsername());
         User savedUser = userRepository.save(foundUser);
         return mapLogoutResponse(savedUser);
