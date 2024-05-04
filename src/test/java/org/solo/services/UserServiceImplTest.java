@@ -31,6 +31,7 @@ public class UserServiceImplTest {
     private EditContactRequest editContactRequest;
     private DeleteContactListRequest deleteContactListRequest;
     private SearchContactRequest searchContactRequest;
+    private ShareContactRequest shareContactRequest;
     private LogoutRequest logoutRequest;
 
 
@@ -65,6 +66,12 @@ public class UserServiceImplTest {
         searchContactRequest = new SearchContactRequest();
         searchContactRequest.setUsername("username");
         searchContactRequest.setName("name");
+
+        shareContactRequest = new ShareContactRequest();
+        shareContactRequest.setUsername("username");
+        shareContactRequest.setName("name");
+        shareContactRequest.setShareWith("name1");
+
 
        logoutRequest = new LogoutRequest();
        logoutRequest.setUsername("username");
