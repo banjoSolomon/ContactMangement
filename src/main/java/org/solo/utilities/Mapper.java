@@ -35,6 +35,16 @@ public class Mapper {
 
     }
 
+    public static ShareContactResponse mapAssignTaskResponseWith(Contact contact) {
+        ShareContactResponse contactResponse = new ShareContactResponse();
+        contactResponse.setContactId(contact.getId());
+        contactResponse.setName(contact.getName());
+        contactResponse.setPhoneNumber(contact.getPhoneNumber());
+        contactResponse.setDateUpdated(DateTimeFormatter
+                .ofPattern("dd/MMM/yyyy 'at' HH:mm:ss a").format(contact.getDateCreation()));
+        return contactResponse;
+    }
+
     public static LogoutUserResponse mapLogoutResponse(User user) {
         LogoutUserResponse loginUserResponse = new LogoutUserResponse();
         loginUserResponse.setUsername(user.getUsername());
