@@ -65,6 +65,7 @@ public class ContactServiceImpl implements ContactService{
         contact.setName(shareContactRequest.getName());
         contact.setAuthor(shareContactRequest.getAuthor());
         contact.setEmail(shareContactRequest.getEmail());
+        contact.setPhoneNumber(shareContactRequest.getPhoneNumber());
         return contactRepository.save(contact);
 
 
