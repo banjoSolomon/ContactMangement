@@ -41,6 +41,7 @@ public class UserController {
             return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), BAD_REQUEST);
         }
     }
+
     @PatchMapping("/View-All")
     public ResponseEntity<?> viewAllContact(@RequestBody ContactRequest contactRequest ) {
         try {
@@ -61,6 +62,8 @@ public class UserController {
         }
 
     }
+
+
     @DeleteMapping("/delete-contact")
     public ResponseEntity<?> deleteContact(@RequestBody DeleteContactListRequest deleteContactListRequest ) {
         try {
@@ -71,6 +74,8 @@ public class UserController {
         }
 
     }
+
+
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestBody LogoutRequest logoutRequest ) {
         try {
@@ -81,5 +86,13 @@ public class UserController {
         }
 
     }
-
+    @PatchMapping("/share_contact")
+    public ResponseEntity<?> searchContact(@RequestBody ShareContactRequest shareContactRequest ) {
+        try {
+            var result = userService.shareContact(shareContactRequest);
+            return new ResponseEntity<>(new ApiResponse(true, result), OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), BAD_REQUEST);
+        }
+    }
 }
