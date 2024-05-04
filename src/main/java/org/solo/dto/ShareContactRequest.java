@@ -6,7 +6,7 @@ import lombok.Data;
 public class ShareContactRequest {
     private String username;
     private String name;
-    private String shareWith;
+    private String author;
 
 
 }

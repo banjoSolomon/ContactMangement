@@ -21,4 +21,6 @@ public interface UserService {
     List<ViewContactResponse> searchContact(SearchContactRequest searchContactRequest);
 
     LogoutUserResponse logout(LogoutRequest logoutRequest);
+
+    void shareContact(ShareContactRequest shareContactRequest);
 }

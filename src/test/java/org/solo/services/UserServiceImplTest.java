@@ -68,9 +68,10 @@ public class UserServiceImplTest {
         searchContactRequest.setName("name");
 
         shareContactRequest = new ShareContactRequest();
-        shareContactRequest.setUsername("username");
+        shareContactRequest.setUsername("username1");
         shareContactRequest.setName("name");
-        shareContactRequest.setShareWith("name1");
+        shareContactRequest.setAuthor("username2");
+
 
 
        logoutRequest = new LogoutRequest();
@@ -287,16 +288,45 @@ public class UserServiceImplTest {
     public void testUserCan_ShareContact(){
         registerRequest.setFirstName("Solomon");
         registerRequest.setLastName("Banjo");
-        registerRequest.setUsername("username");
+        registerRequest.setUsername("username1");
         registerRequest.setPassword("password");
         userService.register(registerRequest);
+        registerRequest.setFirstName("Oliver");
+        registerRequest.setLastName("Ben");
+        registerRequest.setUsername("username2");
+        registerRequest.setPassword("pass");
+        userService.register(registerRequest);
+        assertThat(userRepository.count(), is(2L));
         loginRequest = new LoginRequest();
-        loginRequest.setUsername("username");
+        loginRequest.setUsername("username1");
         loginRequest.setPassword("password");
         userService.login(loginRequest);
         assertThat(userRepository.count(), is(1L));
         var checkUser = userRepository.findByUsername(registerRequest.getUsername());
         assertThat(checkUser.getContacts().size(), is(0));
+        contactRequest = new ContactRequest();
+        contactRequest.setUsername("username1");
+        contactRequest.setName("name");
+        contactRequest.setEmail("ayomidebanjo123@gmail.com");
+        contactRequest.setPhoneNumber("08164556989");
+        userService.createContacts(contactRequest);
+        shareContactRequest = new ShareContactRequest();
+        shareContactRequest.setUsername("username2");
+        shareContactRequest.setName("name");
+        shareContactRequest.setAuthor("username1");
+        userService.shareContact(shareContactRequest);
+        User user2 = userRepository.findByUsername("username2");
+        assertThat(user2, notNullValue());
+        assertThat(user2.getContacts().size(), is(1));
+        assertThat(user2.getContacts().getFirst().getName(), containsString("name"));
+        assertThat(user2.getContacts().getFirst().getEmail(), containsString("ayomidebanjo123@gmail.com"));
+        assertThat(user2.getContacts().getFirst().getPhoneNumber(), containsString("08164556989"));
+        assertThat(user2.getContacts().getFirst().getAuthor(), containsString("username1"));
+
+
+
+
+
 
 
     }

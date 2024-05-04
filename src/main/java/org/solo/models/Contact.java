@@ -15,6 +15,7 @@ public class Contact {
     private String name;
     private String phoneNumber;
     private String email;
+    private String author;
     private List<User> users = new ArrayList<>();
     @Id
     private String id;

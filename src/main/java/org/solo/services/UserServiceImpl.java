@@ -164,6 +164,12 @@ public class UserServiceImpl implements UserService{
         return mapLogoutResponse(savedUser);
     }
 
+    @Override
+    public void shareContact(ShareContactRequest shareContactRequest) {
+
+
+    }
+
 
     private Contact findContactBy(String contactId, User user) {
         for (Contact contact : user.getContacts()) {
