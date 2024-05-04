@@ -7,6 +7,8 @@ public class ShareContactRequest {
     private String username;
     private String name;
     private String author;
+    private String phoneNumber;
+    private String email;
 
 
 }

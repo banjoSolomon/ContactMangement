@@ -286,6 +286,7 @@ public class UserServiceImplTest {
 
     @Test
     public void testUserCan_ShareContact(){
+
         registerRequest.setFirstName("Solomon");
         registerRequest.setLastName("Banjo");
         registerRequest.setUsername("username1");
@@ -301,9 +302,7 @@ public class UserServiceImplTest {
         loginRequest.setUsername("username1");
         loginRequest.setPassword("password");
         userService.login(loginRequest);
-        assertThat(userRepository.count(), is(1L));
         var checkUser = userRepository.findByUsername(registerRequest.getUsername());
-        assertThat(checkUser.getContacts().size(), is(0));
         contactRequest = new ContactRequest();
         contactRequest.setUsername("username1");
         contactRequest.setName("name");

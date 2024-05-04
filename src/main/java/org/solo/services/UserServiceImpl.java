@@ -166,6 +166,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void shareContact(ShareContactRequest shareContactRequest) {
+        validateAuthentication();
+        String shareUsername = shareContactRequest.getAuthor();
+        String sharedUser = shareContactRequest.getUsername();
+        User user = findUserBy(shareUsername);
+        User user1 = findUserBy(sharedUser);
+        Contact contact = contactService.shareContact(shareContactRequest);
+        user1.getContacts().add(contact);
+        userRepository.save(user1);
 
 
     }

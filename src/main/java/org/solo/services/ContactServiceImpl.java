@@ -3,6 +3,7 @@ package org.solo.services;
 import org.solo.dto.ContactRequest;
 import org.solo.dto.DeleteContactListRequest;
 import org.solo.dto.EditContactRequest;
+import org.solo.dto.ShareContactRequest;
 import org.solo.models.Contact;
 import org.solo.models.User;
 import org.solo.repository.ContactRepository;
@@ -56,6 +57,19 @@ public class ContactServiceImpl implements ContactService{
         List<Contact> contacts = new ArrayList<>();
         contacts.addAll(foundUser.getContacts());
         return contacts;
+    }
+
+    @Override
+    public Contact shareContact(ShareContactRequest shareContactRequest) {
+        Contact contact = new Contact();
+        contact.setName(shareContactRequest.getName());
+        contact.setAuthor(shareContactRequest.getAuthor());
+        contact.setEmail(shareContactRequest.getEmail());
+        return contactRepository.save(contact);
+
+
+
+
     }
 
 

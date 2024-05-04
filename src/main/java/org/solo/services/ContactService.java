@@ -3,6 +3,7 @@ package org.solo.services;
 import org.solo.dto.ContactRequest;
 import org.solo.dto.DeleteContactListRequest;
 import org.solo.dto.EditContactRequest;
+import org.solo.dto.ShareContactRequest;
 import org.solo.models.Contact;
 import org.solo.models.User;
 import org.solo.response.DeleteContactResponse;
@@ -21,4 +22,5 @@ public interface ContactService {
 
     List<Contact> viewAllContact(User foundUser);
 
+    Contact shareContact(ShareContactRequest shareContactRequest);
 }
