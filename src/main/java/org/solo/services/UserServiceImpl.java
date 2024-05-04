@@ -4,7 +4,6 @@ import org.solo.dto.*;
 import org.solo.exceptions.*;
 import org.solo.models.Contact;
 import org.solo.models.User;
-import org.solo.repository.ContactRepository;
 import org.solo.repository.UserRepository;
 import org.solo.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,7 +164,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void shareContact(ShareContactRequest shareContactRequest) {
+    public ShareContactResponse shareContact(ShareContactRequest shareContactRequest) {
         validateAuthentication();
         String shareUsername = shareContactRequest.getAuthor();
         String sharedUser = shareContactRequest.getUsername();
@@ -175,7 +174,7 @@ public class UserServiceImpl implements UserService{
         user1.getContacts().add(contact);
         userRepository.save(user1);
 
-
+        return mapShareContactResponseWith(contact);
     }
 
 

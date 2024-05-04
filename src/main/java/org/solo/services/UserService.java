@@ -22,5 +22,6 @@ public interface UserService {
 
     LogoutUserResponse logout(LogoutRequest logoutRequest);
 
-    void shareContact(ShareContactRequest shareContactRequest);
+    ShareContactResponse shareContact(ShareContactRequest shareContactRequest);
+
 }
