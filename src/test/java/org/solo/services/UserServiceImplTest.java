@@ -71,6 +71,8 @@ public class UserServiceImplTest {
         shareContactRequest.setUsername("username1");
         shareContactRequest.setName("name");
         shareContactRequest.setAuthor("username2");
+        shareContactRequest.setEmail("ayomidebanjo123@gmail.com");
+        shareContactRequest.setPhoneNumber("08164556989");
 
 
 
@@ -286,7 +288,6 @@ public class UserServiceImplTest {
 
     @Test
     public void testUserCan_ShareContact(){
-
         registerRequest.setFirstName("Solomon");
         registerRequest.setLastName("Banjo");
         registerRequest.setUsername("username1");
@@ -313,6 +314,8 @@ public class UserServiceImplTest {
         shareContactRequest.setUsername("username2");
         shareContactRequest.setName("name");
         shareContactRequest.setAuthor("username1");
+        shareContactRequest.setEmail("ayomidebanjo123@gmail.com");
+        shareContactRequest.setPhoneNumber("08164556989");
         userService.shareContact(shareContactRequest);
         User user2 = userRepository.findByUsername("username2");
         assertThat(user2, notNullValue());
