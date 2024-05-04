@@ -151,6 +151,10 @@ public class UserServiceImplTest {
         registerRequest.setUsername("username");
         registerRequest.setPassword("password");
         userService.register(registerRequest);
+        loginRequest = new LoginRequest();
+        loginRequest.setUsername("username");
+        loginRequest.setPassword("password");
+        userService.login(loginRequest);
         assertThat(userRepository.count(), is(1L));
         var checkUser = userRepository.findByUsername(registerRequest.getUsername());
         assertThat(checkUser.getContacts().size(), is(0));
@@ -223,6 +227,7 @@ public class UserServiceImplTest {
     @Test
     public void testUserCanDeleteAContact() {
         userService.register(registerRequest);
+        userService.login(loginRequest);
         userService.createContacts(contactRequest);
         var foundUser = userRepository.findByUsername(registerRequest.getUsername().toLowerCase());
         assertNotNull(foundUser);
