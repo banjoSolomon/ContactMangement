@@ -35,7 +35,7 @@ public class Mapper {
 
     }
 
-    public static ShareContactResponse mapAssignTaskResponseWith(Contact contact) {
+    public static ShareContactResponse mapShareContactResponseWith(Contact contact) {
         ShareContactResponse contactResponse = new ShareContactResponse();
         contactResponse.setContactId(contact.getId());
         contactResponse.setName(contact.getName());
