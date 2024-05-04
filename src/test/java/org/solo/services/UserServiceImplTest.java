@@ -275,6 +275,25 @@ public class UserServiceImplTest {
         assertThat(contactListResponse.getFirst().getEmail(), containsString("ayomidebanjo02@gmail.com"));
 
     }
+
+    @Test
+    public void testUserCan_ShareContact(){
+        registerRequest.setFirstName("Solomon");
+        registerRequest.setLastName("Banjo");
+        registerRequest.setUsername("username");
+        registerRequest.setPassword("password");
+        userService.register(registerRequest);
+        loginRequest = new LoginRequest();
+        loginRequest.setUsername("username");
+        loginRequest.setPassword("password");
+        userService.login(loginRequest);
+        assertThat(userRepository.count(), is(1L));
+        var checkUser = userRepository.findByUsername(registerRequest.getUsername());
+        assertThat(checkUser.getContacts().size(), is(0));
+
+
+    }
+
     @Test
     public void testUserCanLogout() {
         registerRequest = new RegisterRequest();
