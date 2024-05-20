@@ -33,6 +33,7 @@ public class UserServiceImplTest {
     private SearchContactRequest searchContactRequest;
     private ShareContactRequest shareContactRequest;
     private LogoutRequest logoutRequest;
+    private SendMessageRequest sendMessageRequest;
 
 
     @BeforeEach
@@ -74,10 +75,16 @@ public class UserServiceImplTest {
         shareContactRequest.setEmail("ayomidebanjo123@gmail.com");
         shareContactRequest.setPhoneNumber("08164556989");
 
-
-
        logoutRequest = new LogoutRequest();
        logoutRequest.setUsername("username");
+
+       sendMessageRequest = new SendMessageRequest();
+       sendMessageRequest.setUsername("username");
+       sendMessageRequest.setReceiver("username1");
+       sendMessageRequest.setSubject("subject");
+       sendMessageRequest.setMessage("message");
+
+
 
 
     }
@@ -347,7 +354,49 @@ public class UserServiceImplTest {
         assertThat(loginResponse.getUsername(), notNullValue());
     }
 
+    @Test
+    public void testUserCanSendMessageToAnotherUser(){
+        registerRequest = new RegisterRequest();
+        registerRequest.setFirstName("Solomon");
+        registerRequest.setUsername("username");
+        registerRequest.setPassword("password");
+        userService.register(registerRequest);
+        registerRequest = new RegisterRequest();
+        registerRequest.setFirstName("Sam");
+        registerRequest.setUsername("username1");
+        registerRequest.setPassword("password1");
+        userService.register(registerRequest);
+        assertThat(userRepository.count(), is(2L));
+        loginRequest = new LoginRequest();
+        loginRequest.setUsername("username");
+        loginRequest.setPassword("password");
+        userService.login(loginRequest);
+        loginRequest = new LoginRequest();
+        loginRequest.setUsername("username1");
+        loginRequest.setPassword("password1");
+        userService.login(loginRequest);
+
+        var checkUser = userRepository.findByUsername(registerRequest.getUsername());
+        assertThat(checkUser.getContacts().size(), is(0));
+        contactRequest = new ContactRequest();
+        contactRequest.setUsername(registerRequest.getUsername());
+        contactRequest.setName("name");
+        contactRequest.setEmail("ayomidebanjo026@gmail.com");
+        contactRequest.setPhoneNumber("08164556912");
+        userService.createContacts(contactRequest);
+        checkUser = userRepository.findByUsername(registerRequest.getUsername());
+        assertThat(checkUser.getContacts().size(), is(1));
+        var contactListResponse= userService.sendMessage(contactRequest);
+
+
+
+
+
     }
+
+    }
+
+
 
 
 
