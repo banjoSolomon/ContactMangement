@@ -386,7 +386,18 @@ public class UserServiceImplTest {
         userService.createContacts(contactRequest);
         checkUser = userRepository.findByUsername(registerRequest.getUsername());
         assertThat(checkUser.getContacts().size(), is(1));
-        var contactListResponse= userService.sendMessage(contactRequest);
+        sendMessageRequest = new SendMessageRequest();
+        sendMessageRequest.setUsername("username");
+        sendMessageRequest.setReceiver("username1");
+        sendMessageRequest.setSubject("subject");
+        sendMessageRequest.setMessage("message");
+        var contactListResponse = userService.sendMessage(sendMessageRequest);
+        assertThat(contactListResponse.getMessage(), containsString("message"));
+        assertThat(contactListResponse.getSubject(), containsString("subject"));
+        assertThat(contactListResponse.getSender(), containsString("username"));
+        assertThat(contactListResponse.getReceiver(), containsString("username1"));
+        assertThat(contactListResponse.getCreatedAt(), notNullValue());
+
 
 
 
